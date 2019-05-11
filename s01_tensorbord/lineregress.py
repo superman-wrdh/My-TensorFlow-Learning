@@ -39,8 +39,8 @@ sess = tf.Session()
 init = tf.global_variables_initializer()
 sess.run(init)
 
-# 训练20部
-for step in range(20):
+# 训练200部
+for step in range(100):
     # 对每一步进行优化
     sess.run(train)
     # 打印每一步损失 ，权重 和偏差

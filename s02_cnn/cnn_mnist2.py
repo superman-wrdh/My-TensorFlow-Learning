@@ -97,7 +97,13 @@ accuracy = tf.metrics.accuracy(
     predictions=tf.argmax(logits, axis=1), )[1]
 
 # 创建会话
-sess = tf.Session()
+#
+config = tf.ConfigProto()
+
+config.gpu_options.allow_growth = True
+
+sess = tf.Session(config=config)
+#
 # 初始化变量：全局和局部
 init = tf.group(tf.global_variables_initializer(), tf.local_variables_initializer())
 sess.run(init)

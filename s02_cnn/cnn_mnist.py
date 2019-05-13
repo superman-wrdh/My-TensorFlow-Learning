@@ -31,5 +31,35 @@ test_x = mnist.test.images[:3000]  # 图片
 test_y = mnist.test.labels[:3000]  # 标签
 
 # 构建我们的神经卷积网络
-convl = tf.layers.conv2d(inputs=input_x_images)  # input_x_images 形状 [28,28,1]
+convl = tf.layers.conv2d(inputs=input_x_images,  # input_x_images 形状 [28,28,1]
+                         filters=32,  # 32个过滤器 输出深度(depth) 是 32
+                         kernel_size=[5, 5],  # 过滤器在二维的大小是 (5 * 5)
+                         strides=1,  # 步长是1
+                         padding='same',
+                         activation=tf.nn.relu  # 激活函数
+                         )  # 形状 [28,28,32]
+
+# 第一层 池 化
+pool1 = tf.layers.max_pooling2d(
+    inputs=convl,  # 形状 28 * 28 *32
+    pool_size=[2, 2],  # 过滤器在二维大小是(2 *2)
+    strides=2  # 步长是2
+)  # 形状是 [14,14,32]
+
+# 第2层卷积
+conv2 = tf.layers.conv2d(inputs=pool1,  # input_x_images 形状 [14,14,32]
+                         filters=64,  # 64个过滤器 输出深度(depth) 是 64
+                         kernel_size=[5, 5],  # 过滤器在二维的大小是 (5 * 5)
+                         strides=1,  # 步长是1
+                         padding='same',
+                         activation=tf.nn.relu  # 激活函数
+                         )  # 形状 [14,14,64]
+
+# 第二层 池 化
+pool1 = tf.layers.max_pooling2d(
+    inputs=conv2,  # 形状 14 * 14 *64
+    pool_size=[2, 2],  # 过滤器在二维大小是(2 *2)
+    strides=2  # 步长是2
+)  # 形状是 [7,7,64]
+
 
